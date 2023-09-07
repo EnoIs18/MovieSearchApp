@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import moviesReducer from "./moviesByTitleSlice";
-import landingPageMoviesReducer from "./landingPageMoviesSlice";
+import movieByIdReducer from "./movieByIdSlice";
 import { omdApi } from "../endpoints/app.endpoints";
 
 export const store = configureStore({
   reducer: {
     [omdApi.reducerPath]: omdApi.reducer,
     moviesByTitle: moviesReducer,
-    landingPageMovies: landingPageMoviesReducer,
+    movieById: movieByIdReducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
