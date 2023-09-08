@@ -14,7 +14,7 @@ const initialState: movieByIdProps = {
   error: undefined,
 };
 
-const selectSelf: any = (state: RootState) => state.movieById;
+const selectSelf: any = (state: RootState) => state.reducer.movieById;
 
 export const selectMovieByIDState = createSelector(
   selectSelf,

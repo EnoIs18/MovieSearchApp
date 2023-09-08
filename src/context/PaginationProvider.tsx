@@ -1,9 +1,14 @@
 import React, { useState, ReactNode, useEffect } from "react";
 import { Context } from "./Context";
 import { Pagination } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectMoviesState } from "../data/store/moviesByTitleSlice";
 import { useLazyGetMoviesByTitleQuery } from "../data/endpoints/app.endpoints";
+import {
+  selectCurrentPage,
+  selectLoggedUser,
+  setCurrentPage,
+} from "../data/store/userSlice";
 
 type ProviderProps = {
   children: ReactNode;
@@ -13,13 +18,15 @@ const PaginationProvider = ({ children }: ProviderProps) => {
   const [getMovies] = useLazyGetMoviesByTitleQuery();
 
   const [searchText, setSearchText] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const currentPage = useSelector(selectCurrentPage);
 
+  const dispatch = useDispatch();
+
+  const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
   const currentMovies = movies?.moviesByTitle?.Search;
   const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
+    dispatch(setCurrentPage(newPage));
   };
   const count = Math.ceil(movies?.moviesByTitle?.totalResults / itemsPerPage);
 

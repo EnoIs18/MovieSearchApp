@@ -8,6 +8,7 @@ import { Context } from "../../context/Context";
 const HomePage = () => {
   const { currentMovies, setSearchText, getMovies, searchText, currentPage } =
     useContext(Context);
+  console.log(currentPage, "pejxhi");
 
   return (
     <Box sx={{ padding: 5 }}>

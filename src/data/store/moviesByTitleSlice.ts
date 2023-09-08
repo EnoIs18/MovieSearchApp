@@ -4,6 +4,7 @@ import { RootState } from "./store";
 
 export interface MoviesByTitleProps {
   moviesByTitle: [];
+  favorites: [];
   isLoading: boolean;
   error: string | undefined;
 }
@@ -12,9 +13,10 @@ const initialState: MoviesByTitleProps = {
   moviesByTitle: [],
   isLoading: true,
   error: undefined,
+  favorites: [],
 };
 
-const selectSelf: any = (state: RootState) => state.moviesByTitle;
+const selectSelf: any = (state: RootState) => state.reducer.moviesByTitle;
 
 export const selectMoviesState = createSelector(selectSelf, (state) => state);
 
