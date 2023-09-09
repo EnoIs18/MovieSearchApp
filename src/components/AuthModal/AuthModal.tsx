@@ -11,9 +11,7 @@ import BasicTabs from "../TabPanel/CustomTabPanel";
 
 export default function Login() {
   const [open, setOpen] = React.useState(false);
-  const dispatch = useDispatch();
 
-  const userLogged = useSelector(selectLoggedUser);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +34,7 @@ export default function Login() {
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          <BasicTabs /> 
+          <BasicTabs handleClose={handleClose} /> 
         </DialogContent>
         <DialogActions>
           <CustomButton onClick={handleClose}>Close</CustomButton>

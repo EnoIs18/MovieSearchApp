@@ -1,18 +1,17 @@
 import React from 'react'
-import { TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import { Formik } from 'formik'
-import { useDispatch } from 'react-redux'
-import { register } from '../../data/store/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { register, SelectAuthError } from '../../data/store/userSlice'
 import CustomButton from '../CustomButton/CustomButton'
 import CustomTextfield from '../CustomTextField/CustomTextField'
 import * as Yup from 'yup';
 
-const Register = () => {
+const Register = ({handleClose}:any) => {
 const dispatch = useDispatch()
 
 const initialValues = {username:'',password:''}
-
+let error = useSelector(SelectAuthError)
 
     const handleRegister = (values:any) => {
 
@@ -20,7 +19,9 @@ const initialValues = {username:'',password:''}
 
       dispatch(register({ username: values?.username, password: values?.password , isLoggedIn: false,
         favorites: [],}));
-
+        if(error=''){
+          handleClose()
+        }
     }
     const validationSchema = Yup.object().shape({
       username: Yup.string()

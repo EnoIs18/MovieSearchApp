@@ -44,7 +44,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs({handleClose}:any) {
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
 
@@ -62,10 +62,10 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-     <Login />
+     <Login handleClose={handleClose} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1} >
-  <Register />
+  <Register handleClose={handleClose} />
       </CustomTabPanel>
     </Box>
   );

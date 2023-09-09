@@ -3,24 +3,26 @@ import { Box } from '@mui/system';
 import { Formik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { catchAuthError, login } from '../../data/store/userSlice';
+import {  login, SelectAuthError, SelectShowNotification } from '../../data/store/userSlice';
 import CustomButton from '../CustomButton/CustomButton';
 import CustomTextfield from '../CustomTextField/CustomTextField';
 import * as Yup from 'yup';
 
-const Login = () => {
+const Login = ({handleClose}:any) => {
   const dispatch = useDispatch();
 
   const initialValues = { username: '', password: '' };
-  
-  const error = useSelector(catchAuthError)
+  let error = useSelector(SelectAuthError)
+
 
 
   const handleLogin = (values:any,errors:any) => {
     console.log(errors,'err',values);
     
     dispatch(login({ username: values?.username, password: values?.password }));
-    
+    if(error=''){
+      handleClose()
+    }
   };
 
 
@@ -41,7 +43,7 @@ const Login = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema} // Corrected
+      validationSchema={validationSchema} 
       onSubmit={handleLogin}
     >
       {({

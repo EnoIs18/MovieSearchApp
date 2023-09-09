@@ -7,6 +7,7 @@ import MovieDetails from "./components/MovieDetails/MovieDetails";
 import FavoriteMovies from "./components/FavoriteMovies/FavoriteMovies";
 import PaginationFavoriteProvider from "./context/PaginationFavoriteMoviesProvider";
 import Register from "./components/Register/Register";
+import SimpleSnackbar from "./components/SnackBarNotification/SnackBarNotification";
 function App() {
   return (
     <BrowserRouter>
@@ -15,7 +16,9 @@ function App() {
           path="/"
           element={
             <PaginationHomePageProvider>
+              <SimpleSnackbar>
               <HomePage />
+                </SimpleSnackbar>
             </PaginationHomePageProvider>
           }
         />

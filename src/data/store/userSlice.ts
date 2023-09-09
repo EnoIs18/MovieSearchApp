@@ -4,14 +4,18 @@ interface User {
   username: string;
   password: string;
   isLoggedIn: boolean;
-  favorites: any[]; // You can define the type of favorites more precisely if needed
-  error:any
+  favorites: any[]; 
+  error:any;
+  notification:boolean;
+  textNotification:string
 }
 const initialState: any = {
   users: [],
   currentPage: 1,
   favoritesMoviesCurrentPage:1,
-  error:undefined
+  error:undefined,
+  notification:false,
+  textNotification:''
 };
 const selectSelf: any = (state: RootState) => state.reducer.user;
 
@@ -28,9 +32,18 @@ export const selectFavoriteCurrentPage = createSelector(
   (state) => state.favoritesMoviesCurrentPage
 );
 
-export const catchAuthError = createSelector(
+export const SelectAuthError = createSelector(
   selectSelf,
   (state) => state.error
+);
+
+export const SelectShowNotification = createSelector(
+  selectSelf,
+  (state) => state.notification
+);
+export const SelectTextNotification = createSelector(
+  selectSelf,
+  (state) => state.textNotification
 );
 export const selectLoggedUser = createSelector(selectSelf, (state) =>
   state.users?.find((user: User) => {
@@ -66,13 +79,11 @@ const userSlice = createSlice({
       if (user) {
         const updatedFavorites = user.favorites.map((favMovie: any) => {
           if (favMovie.imdbID === action.payload.favoriteMovie.imdbID) {
-            // Update the rating for the specific movie
-            return { ...favMovie, rating: action.payload.newValue }; // Use newValue here
+            return { ...favMovie, rating: action.payload.newValue }; 
           }
           return favMovie;
         });
     
-        // Update the user's favorites with the updated array
         user.favorites = updatedFavorites;
       }
     },
@@ -85,25 +96,30 @@ const userSlice = createSlice({
     register: (state, action) => {
       const { username, password } = action.payload;
 
-      // Check if the username already exists in the initial state
       const isUserExist = state.users.some((user: User) => user.username === username);
 
       if (isUserExist) {
-        state.error = "Username already exists."; // Set error message
-        return; // Exit early, don't modify state further
+        state.error = "Username already exists."; 
+        state.notification = true
+        state.textNotification=''
+        return; 
       }
 
       state.users = [...state.users, { username, password, isLoggedIn: false, favorites: [], error: undefined }];
+      state.notification = true
+      state.error = ''
+      state.textNotification='User registered successfully'
+    
     },
     logout: (state) => {
       const updatedUsers = state?.users?.map((user: User) => {
+        
         return { ...user, isLoggedIn: false };
       });
-
+      
       return { ...state, users: updatedUsers };
     },
     login: (state, action) => {
-        // Find the user to be logged in
         const userToLogin = state?.users?.find((user: User) => {
           return (
             user.username === action.payload.username &&
@@ -112,12 +128,19 @@ const userSlice = createSlice({
         });
   
         if (!userToLogin) {
-          state.error = "Invalid username or password."; // Set error message
-          return; // Exit early, don't modify state further
+          state.error = "Invalid username or password.";
+          state.notification = true
+          state.textNotification=''
+          return; 
         }
   
         const updatedUsers = state?.users?.map((user: User) => {
           if (user.username === userToLogin.username) {
+          state.notification = true
+      state.error = ''
+       state.textNotification='User logged in successfully'
+
+            
             return { ...user, isLoggedIn: true, error: undefined };
           }
           return { ...user, isLoggedIn: false, error: undefined };
@@ -127,10 +150,16 @@ const userSlice = createSlice({
         state.currentPage = 1;
         state.favoritesMoviesCurrentPage = 1;
       },
+      setNotification: (state, action) => {
+        state.notification = action.payload
+        state.error = ''
+        state.textNotification=''
+         },
     },
+    
 });
 
-export const { addFavorite, removeFavorite,setRate, logout,register, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
+export const { addFavorite, removeFavorite,setRate,setNotification,logout,register, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
   userSlice.actions;
 
 export default userSlice.reducer;
