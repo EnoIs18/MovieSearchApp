@@ -91,7 +91,7 @@ const userSlice = createSlice({
     setFavoriteMoviesCurrentPage: (state, action) => {
       state.favoritesMoviesCurrentPage = action.payload;
     },
-    createUser: (state, action) => {
+    register: (state, action) => {
       state.users = [...state.users, action.payload];
     },
     logout: (state) => {
@@ -126,7 +126,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addFavorite, removeFavorite,setRate, logout, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
+export const { addFavorite, removeFavorite,setRate, logout,register, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
   userSlice.actions;
 
 export default userSlice.reducer;

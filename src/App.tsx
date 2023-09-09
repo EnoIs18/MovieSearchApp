@@ -8,11 +8,13 @@ import Login from "./components/Login/Login";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import FavoriteMovies from "./components/FavoriteMovies/FavoriteMovies";
 import PaginationFavoriteProvider from "./context/PaginationFavoriteMoviesProvider";
+import Register from "./components/Register/Register";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/"
           element={

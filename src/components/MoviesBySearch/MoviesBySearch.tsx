@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectLoggedUser } from "../../data/store/userSlice";
 import CustomButton from "../CustomButton/CustomButton";
 import Login from "../Login/Login";
+import BasicTabs from "../TabPanel/CustomTabPanel";
 
 interface MoviesBySearchProps {
   movies: any[];
@@ -22,7 +23,7 @@ const MoviesBySearch = ({ movies }: MoviesBySearchProps) => {
           children={"LOG OUT"}
         />
       ) : (
-        <Login />
+        <><BasicTabs /><Login /></>
       )}
       {movies?.map((movie, index) => (
         <MovieItem key={index} movie={movie} />

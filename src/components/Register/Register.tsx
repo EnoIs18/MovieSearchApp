@@ -6,11 +6,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { login, selectLoggedUser } from "../../data/store/userSlice";
+import { login, register, selectLoggedUser } from "../../data/store/userSlice";
 import CustomButton from "../CustomButton/CustomButton";
-import BasicTabs from "../TabPanel/CustomTabPanel";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -24,11 +24,11 @@ export default function Login() {
     setOpen(false);
   };
 
- 
+  
   return (
     <div>
       <CustomButton variant="outlined" onClick={handleClickOpen}>
-        LOGIN
+        Register
       </CustomButton>
 
       <Dialog
@@ -37,11 +37,15 @@ export default function Login() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+        <DialogTitle id="alert-dialog-title">Register</DialogTitle>
         <DialogContent>
-         <BasicTabs />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <TextField label="Username" />
+            <TextField label="Password" />
+          </Box>
         </DialogContent>
         <DialogActions>
-          <CustomButton onClick={handleClose}>Close</CustomButton>
+          <CustomButton onClick={handleClose}>Cancel</CustomButton>
         </DialogActions>
       </Dialog>
     </div>
