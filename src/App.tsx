@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import "./App.css";
 
-import PaginationProvider from "./context/PaginationProvider";
+import PaginationHomePageProvider from "./context/PaginationHomePageProvider";
 import HomePage from "./components/HomePage/HomePage";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Login from "./components/Login/Login";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import FavoriteMovies from "./components/FavoriteMovies/FavoriteMovies";
+import PaginationFavoriteProvider from "./context/PaginationFavoriteMoviesProvider";
 function App() {
   return (
     <BrowserRouter>
@@ -15,17 +16,17 @@ function App() {
         <Route
           path="/"
           element={
-            <PaginationProvider>
+            <PaginationHomePageProvider>
               <HomePage />
-            </PaginationProvider>
+            </PaginationHomePageProvider>
           }
         />
         <Route
-          path="/movies/:favorites"
+          path="/movies/favorites"
           element={
-            <PaginationProvider>
+            <PaginationFavoriteProvider>
               <FavoriteMovies />
-            </PaginationProvider>
+            </PaginationFavoriteProvider>
           }
         />
         <Route path="/movies/:id" element={<MovieDetails />} />

@@ -15,7 +15,7 @@ type ProviderProps = {
   children: ReactNode;
 };
 
-const PaginationProvider = ({ children }: ProviderProps) => {
+const PaginationHomePageProvider = ({ children }: ProviderProps) => {
   const dispatch = useDispatch();
   const [getMovies] = useLazyGetMoviesByTitleQuery();
 
@@ -72,4 +72,4 @@ const PaginationProvider = ({ children }: ProviderProps) => {
   );
 };
 
-export default PaginationProvider;
+export default PaginationHomePageProvider;

@@ -23,6 +23,7 @@ const initialState: any = {
     },
   ],
   currentPage: 1,
+  favoritesMoviesCurrentPage:1
 };
 const selectSelf: any = (state: RootState) => state.reducer.user;
 
@@ -31,6 +32,12 @@ export const selectUsersState = createSelector(selectSelf, (state) => state);
 export const selectCurrentPage = createSelector(
   selectSelf,
   (state) => state.currentPage
+);
+
+
+export const selectFavoriteCurrentPage = createSelector(
+  selectSelf,
+  (state) => state.favoritesMoviesCurrentPage
 );
 
 export const selectLoggedUser = createSelector(selectSelf, (state) =>
@@ -64,6 +71,9 @@ const userSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setFavoriteMoviesCurrentPage: (state, action) => {
+      state.favoritesMoviesCurrentPage = action.payload;
+    },
     createUser: (state, action) => {
       state.users = [...state.users, action.payload];
     },
@@ -91,7 +101,7 @@ const userSlice = createSlice({
           return { ...user, isLoggedIn: false };
         });
 
-        return { ...state, users: updatedUsers, currentPage: 1 };
+        return { ...state, users: updatedUsers, currentPage: 1,favoritesMoviesCurrentPage:1 };
       }
 
       return state;
@@ -99,7 +109,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addFavorite, removeFavorite, logout, login, setCurrentPage } =
+export const { addFavorite, removeFavorite, logout, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
   userSlice.actions;
 
 export default userSlice.reducer;
