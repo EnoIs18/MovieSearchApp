@@ -1,29 +1,17 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-
+interface User {
+  username: string;
+  password: string;
+  isLoggedIn: boolean;
+  favorites: any[]; // You can define the type of favorites more precisely if needed
+  error:any
+}
 const initialState: any = {
-  users: [
-    {
-      username: "test",
-      password: "1234",
-      isLoggedIn: false,
-      favorites: [],
-    },
-    {
-      username: "test2",
-      password: "1234",
-      isLoggedIn: false,
-      favorites: [],
-    },
-    {
-      username: "test3",
-      password: "1234",
-      isLoggedIn: false,
-      favorites: [],
-    },
-  ],
+  users: [],
   currentPage: 1,
-  favoritesMoviesCurrentPage:1
+  favoritesMoviesCurrentPage:1,
+  error:undefined
 };
 const selectSelf: any = (state: RootState) => state.reducer.user;
 
@@ -40,8 +28,12 @@ export const selectFavoriteCurrentPage = createSelector(
   (state) => state.favoritesMoviesCurrentPage
 );
 
+export const catchAuthError = createSelector(
+  selectSelf,
+  (state) => state.error
+);
 export const selectLoggedUser = createSelector(selectSelf, (state) =>
-  state.users?.find((user: any) => {
+  state.users?.find((user: User) => {
     return user?.isLoggedIn;
   })
 );
@@ -53,7 +45,7 @@ const userSlice = createSlice({
     addFavorite: (state, action) => {
       const { movie } = action.payload;
 
-      const user = state.users.find((u: any) => u.isLoggedIn);
+      const user = state.users.find((u: User) => u.isLoggedIn);
       if (user) {
         user.favorites.push({...movie,rating:0});
       }
@@ -61,7 +53,7 @@ const userSlice = createSlice({
     removeFavorite: (state, action) => {
       const { movie } = action.payload;
 
-      const user = state.users.find((u: any) => u.isLoggedIn);
+      const user = state.users.find((u: User) => u.isLoggedIn);
       if (user) {
         user.favorites = user.favorites.filter(
           (id: any) => id.imdbID !== movie.imdbID
@@ -70,7 +62,7 @@ const userSlice = createSlice({
     },
     setRate:(state,action)=>{
       
-      const user = state.users.find((u: any) => u.isLoggedIn);
+      const user = state.users.find((u: User) => u.isLoggedIn);
       if (user) {
         const updatedFavorites = user.favorites.map((favMovie: any) => {
           if (favMovie.imdbID === action.payload.favoriteMovie.imdbID) {
@@ -91,38 +83,51 @@ const userSlice = createSlice({
       state.favoritesMoviesCurrentPage = action.payload;
     },
     register: (state, action) => {
-      state.users = [...state.users, action.payload];
+      const { username, password } = action.payload;
+
+      // Check if the username already exists in the initial state
+      const isUserExist = state.users.some((user: User) => user.username === username);
+
+      if (isUserExist) {
+        state.error = "Username already exists."; // Set error message
+        return; // Exit early, don't modify state further
+      }
+
+      state.users = [...state.users, { username, password, isLoggedIn: false, favorites: [], error: undefined }];
     },
     logout: (state) => {
-      const updatedUsers = state?.users?.map((user: any) => {
+      const updatedUsers = state?.users?.map((user: User) => {
         return { ...user, isLoggedIn: false };
       });
 
       return { ...state, users: updatedUsers };
     },
     login: (state, action) => {
-      // Find the user to be logged in
-      const userToLogin = state?.users?.find((user: any) => {
-        return (
-          user.username === action.payload.username &&
-          user.password === action.payload.password
-        );
-      });
-
-      if (userToLogin) {
-        const updatedUsers = state?.users?.map((user: any) => {
-          if (user.username === userToLogin.username) {
-            return { ...user, isLoggedIn: true };
-          }
-          return { ...user, isLoggedIn: false };
+        // Find the user to be logged in
+        const userToLogin = state?.users?.find((user: User) => {
+          return (
+            user.username === action.payload.username &&
+            user.password === action.payload.password
+          );
         });
-
-        return { ...state, users: updatedUsers, currentPage: 1,favoritesMoviesCurrentPage:1 };
-      }
-
-      return state;
+  
+        if (!userToLogin) {
+          state.error = "Invalid username or password."; // Set error message
+          return; // Exit early, don't modify state further
+        }
+  
+        const updatedUsers = state?.users?.map((user: User) => {
+          if (user.username === userToLogin.username) {
+            return { ...user, isLoggedIn: true, error: undefined };
+          }
+          return { ...user, isLoggedIn: false, error: undefined };
+        });
+  
+        state.users = updatedUsers;
+        state.currentPage = 1;
+        state.favoritesMoviesCurrentPage = 1;
+      },
     },
-  },
 });
 
 export const { addFavorite, removeFavorite,setRate, logout,register, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
