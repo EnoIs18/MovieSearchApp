@@ -1,16 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { Box } from "@mui/material";
+
+import { Context } from "../../context/Context";
 import CustomTextfield from "../CustomTextField/CustomTextField";
 import CustomButton from "../CustomButton/CustomButton";
-import MoviesBySearch from "../MoviesBySearch/MoviesBySearch";
-import { Context } from "../../context/Context";
 import { Link } from "react-router-dom";
+import FavoriteMovieItems from "../FavoriteMovieItems/FavoriteMovieItems";
 
-const HomePage = () => {
+const FavoriteMovies = () => {
   const { currentMovies, setSearchText, getMovies, searchText, currentPage } =
     useContext(Context);
-  console.log(currentMovies, "home page");
-
   return (
     <Box sx={{ padding: 5 }}>
       <CustomTextfield
@@ -26,14 +25,14 @@ const HomePage = () => {
           getMovies({ search: searchText, page: currentPage });
         }}
       />
-      <Link to={`/movies/favorites`}>
+      <Link to={`/favorites`}>
         <CustomButton children={"Favorites"} onClick={() => {}} />
       </Link>
       <Box sx={{ display: "grid", gridTemplateColumns: "30% 30% 30%", gap: 5 }}>
-        <MoviesBySearch movies={currentMovies} />
+        <FavoriteMovieItems movies={currentMovies} />
       </Box>
     </Box>
   );
 };
 
-export default HomePage;
+export default FavoriteMovies;

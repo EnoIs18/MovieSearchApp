@@ -11,7 +11,6 @@ const MovieDetails = () => {
   useEffect(() => {
     getMovieById(id);
   }, [id]);
-  console.log(movieById);
 
   return (
     <div>

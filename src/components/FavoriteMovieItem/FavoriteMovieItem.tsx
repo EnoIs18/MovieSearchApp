@@ -13,7 +13,7 @@ interface MovieProps {
   movie: any;
 }
 
-const MovieItem = ({ movie }: MovieProps) => {
+const FavoriteMovieItem = ({ movie }: MovieProps) => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => {
     return state?.reducer?.user?.users?.find((u: any) => u.isLoggedIn);
@@ -30,7 +30,7 @@ const MovieItem = ({ movie }: MovieProps) => {
     }
   };
   return (
-    <Link to={`/movies/${movie.imdbID}`}>
+    <Link to={`/movies/favorites`}>
       <div style={{ position: "relative" }}>
         <CustomButton
           onClick={(e) => {
@@ -64,4 +64,4 @@ const MovieItem = ({ movie }: MovieProps) => {
   );
 };
 
-export default MovieItem;
+export default FavoriteMovieItem;

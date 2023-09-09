@@ -15,6 +15,12 @@ const initialState: any = {
       isLoggedIn: false,
       favorites: [],
     },
+    {
+      username: "test3",
+      password: "1234",
+      isLoggedIn: false,
+      favorites: [],
+    },
   ],
   currentPage: 1,
 };
@@ -61,9 +67,16 @@ const userSlice = createSlice({
     createUser: (state, action) => {
       state.users = [...state.users, action.payload];
     },
+    logout: (state) => {
+      const updatedUsers = state?.users?.map((user: any) => {
+        return { ...user, isLoggedIn: false };
+      });
+
+      return { ...state, users: updatedUsers };
+    },
     login: (state, action) => {
       // Find the user to be logged in
-      const userToLogin = state.users.find((user: any) => {
+      const userToLogin = state?.users?.find((user: any) => {
         return (
           user.username === action.payload.username &&
           user.password === action.payload.password
@@ -71,7 +84,7 @@ const userSlice = createSlice({
       });
 
       if (userToLogin) {
-        const updatedUsers = state.users.map((user: any) => {
+        const updatedUsers = state?.users?.map((user: any) => {
           if (user.username === userToLogin.username) {
             return { ...user, isLoggedIn: true };
           }
@@ -86,7 +99,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addFavorite, removeFavorite, login, setCurrentPage } =
+export const { addFavorite, removeFavorite, logout, login, setCurrentPage } =
   userSlice.actions;
 
 export default userSlice.reducer;

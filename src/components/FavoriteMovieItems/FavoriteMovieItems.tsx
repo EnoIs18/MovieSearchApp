@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import MovieItem from "./MovieItem";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectLoggedUser } from "../../data/store/userSlice";
 import CustomButton from "../CustomButton/CustomButton";
 import Login from "../Login/Login";
+import FavoriteMovieItem from "../FavoriteMovieItem/FavoriteMovieItem";
 
 interface MoviesBySearchProps {
   movies: any[];
 }
 
-const MoviesBySearch = ({ movies }: MoviesBySearchProps) => {
+const FavoriteMovieItems = ({ movies }: MoviesBySearchProps) => {
   const dispatch = useDispatch();
   const loggedUser = useSelector(selectLoggedUser);
   return (
@@ -25,10 +25,10 @@ const MoviesBySearch = ({ movies }: MoviesBySearchProps) => {
         <Login />
       )}
       {movies?.map((movie, index) => (
-        <MovieItem key={index} movie={movie} />
+        <FavoriteMovieItem key={index} movie={movie} />
       ))}
     </>
   );
 };
 
-export default MoviesBySearch;
+export default FavoriteMovieItems;

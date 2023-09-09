@@ -9,26 +9,38 @@ import {
   selectLoggedUser,
   setCurrentPage,
 } from "../data/store/userSlice";
+import { useParams } from "react-router";
 
 type ProviderProps = {
   children: ReactNode;
 };
 
 const PaginationProvider = ({ children }: ProviderProps) => {
-  const [getMovies] = useLazyGetMoviesByTitleQuery();
-
-  const [searchText, setSearchText] = useState("");
-  const currentPage = useSelector(selectCurrentPage);
-
   const dispatch = useDispatch();
+  const [getMovies] = useLazyGetMoviesByTitleQuery();
 
   const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
   const currentMovies = movies?.moviesByTitle?.Search;
+
+  const [searchText, setSearchText] = useState("");
+  const currentPage = useSelector(selectCurrentPage);
+
   const handlePageChange = (event: any, newPage: any) => {
     dispatch(setCurrentPage(newPage));
   };
   const count = Math.ceil(movies?.moviesByTitle?.totalResults / itemsPerPage);
+
+  //favorites movies
+  const loggedUser = useSelector(selectLoggedUser);
+
+  const params = useParams();
+  console.log(params, "paramss");
+
+  const currentFavoriteMovies = loggedUser?.favorites;
+  const countForFavorites = Math.ceil(
+    loggedUser?.favorites?.length / itemsPerPage
+  );
 
   useEffect(() => {
     getMovies({
