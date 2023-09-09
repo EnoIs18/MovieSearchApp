@@ -25,7 +25,6 @@ const PaginationFavoriteProvider = ({ children }: ProviderProps) => {
 
   const [searchText, setSearchText] = useState("");
   const currentPage = useSelector(selectFavoriteCurrentPage);
-console.log(currentPage);
 
   const handlePageChange = (event: any, newPage: any) => {
     dispatch(setFavoriteMoviesCurrentPage(newPage));

@@ -2,12 +2,13 @@ import React from "react";
 import { Button, ButtonOwnProps } from "@mui/material";
 
 interface CustomButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   variant?: ButtonOwnProps["variant"] | undefined;
   disabled?: boolean;
   size?: ButtonOwnProps["size"] | undefined;
   children: React.ReactNode;
   style?: ButtonOwnProps["sx"] | undefined;
+  type?:"button" | "submit" | "reset" | undefined
 }
 
 const CustomButton = ({
@@ -17,6 +18,7 @@ const CustomButton = ({
   size,
   children,
   style,
+  type
 }: CustomButtonProps) => {
   return (
     <Button
@@ -25,6 +27,7 @@ const CustomButton = ({
       disabled={disabled}
       size={size}
       sx={style}
+      type={type}
     >
       {children}
     </Button>

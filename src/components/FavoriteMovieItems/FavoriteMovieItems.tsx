@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectLoggedUser } from "../../data/store/userSlice";
 import CustomButton from "../CustomButton/CustomButton";
-import Login from "../Login/Login";
+import AuthModal from "../AuthModal/AuthModal";
 import FavoriteMovieItem from "../FavoriteMovieItem/FavoriteMovieItem";
 
 interface MoviesBySearchProps {
@@ -22,7 +22,7 @@ const FavoriteMovieItems = ({ movies }: MoviesBySearchProps) => {
           children={"LOG OUT"}
         />
       ) : (
-        <Login />
+        <AuthModal />
       )}
       {movies?.map((movie, index) => (
         <FavoriteMovieItem key={index} movie={movie} />

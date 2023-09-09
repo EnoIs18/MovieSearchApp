@@ -1,53 +1,53 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Box, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { login, register, selectLoggedUser } from "../../data/store/userSlice";
-import CustomButton from "../CustomButton/CustomButton";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { TextField } from '@mui/material'
+import { Box } from '@mui/system'
+import { Formik } from 'formik'
+import { useDispatch } from 'react-redux'
+import { register } from '../../data/store/userSlice'
+import CustomButton from '../CustomButton/CustomButton'
+import CustomTextfield from '../CustomTextField/CustomTextField'
 
-export default function Register() {
-  const [open, setOpen] = React.useState(false);
-  const dispatch = useDispatch();
+const Register = () => {
+const dispatch = useDispatch()
 
-  const userLogged = useSelector(selectLoggedUser);
+const initialValues = {username:'',password:''}
+const validate = ()=>{}
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const handleRegister = (values:any) => {
 
-  
+      console.log(values,' register formik');
+
+      dispatch(register({ username: values?.username, password: values?.password , isLoggedIn: false,
+        favorites: [],}));
+
+    }
+
   return (
-    <div>
-      <CustomButton variant="outlined" onClick={handleClickOpen}>
-        Register
-      </CustomButton>
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+ <Formik
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={handleRegister}
       >
-        <DialogTitle id="alert-dialog-title">Register</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <TextField label="Username" />
-            <TextField label="Password" />
+        {({
+          errors,
+          values,
+          handleChange,
+          handleSubmit,
+          handleReset,
+          touched,
+          setFieldValue,
+          resetForm,
+        }) => (
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CustomTextfield name="username" label="Username" placeholder='enter username' type='text' value={values?.username} variant='filled'  onChange={handleChange}  />
+            <CustomTextfield  name="password" label="Password" placeholder='enter password' type='text' value={values?.password} variant='filled'  onChange={handleChange}  />
+          <CustomButton onClick={()=>handleRegister(values)}>Confirm</CustomButton>
           </Box>
-        </DialogContent>
-        <DialogActions>
-          <CustomButton onClick={handleClose}>Cancel</CustomButton>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+        )}
+      </Formik>
+
+  )
 }
+
+export default Register

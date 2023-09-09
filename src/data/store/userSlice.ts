@@ -69,7 +69,6 @@ const userSlice = createSlice({
       }
     },
     setRate:(state,action)=>{
-      console.log('punon');
       
       const user = state.users.find((u: any) => u.isLoggedIn);
       if (user) {

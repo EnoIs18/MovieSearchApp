@@ -7,17 +7,18 @@ import { TextField } from '@mui/material';
 import CustomButton from '../CustomButton/CustomButton';
 import { useDispatch } from 'react-redux';
 import { login, register } from '../../data/store/userSlice';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
-  handleLogin?: () => void
-  handleRegister?:()=>void
+ 
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, handleLogin,...other } = props;
+  const { children, value, index,...other } = props;
 
   return (
     <div
@@ -29,7 +30,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+         {children}
         </Box>
       )}
     </div>
@@ -51,13 +52,7 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
-  const handleLogin = () => {
-    dispatch(login({ username: "test", password: "1234" }));
-  };
-  
-  const handleRegister = () => {
-    dispatch(register({ username: "test", password: "1234" ,favorites:[],isLoggedIn:false}));
-  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -66,20 +61,11 @@ export default function BasicTabs() {
           <Tab label="REGISTER" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0} handleLogin={handleLogin}>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <TextField label="Username" />
-            <TextField label="Password" />
-          <CustomButton onClick={handleLogin}>Confirm</CustomButton>
-          </Box>
+      <CustomTabPanel value={value} index={0}>
+     <Login />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1} handleRegister={handleRegister}>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <TextField label="Username" />
-            <TextField label="Password" />
-          <CustomButton onClick={handleRegister}>Confirm</CustomButton>
-
-          </Box>
+      <CustomTabPanel value={value} index={1} >
+  <Register />
       </CustomTabPanel>
     </Box>
   );

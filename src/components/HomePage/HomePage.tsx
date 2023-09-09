@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 const HomePage = () => {
   const { currentMovies, setSearchText, getMovies, searchText, currentPage } =
     useContext(Context);
-  console.log(currentMovies, "home page");
 
   return (
     <Box sx={{ padding: 5 }}>
       <CustomTextfield
+      name='search'
         type="text"
         onChange={(e) => setSearchText(e.target.value)}
         value={searchText}

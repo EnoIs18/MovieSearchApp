@@ -35,7 +35,6 @@ const PaginationHomePageProvider = ({ children }: ProviderProps) => {
   const loggedUser = useSelector(selectLoggedUser);
 
   const params = useParams();
-  console.log(params, "paramss");
 
   const currentFavoriteMovies = loggedUser?.favorites;
   const countForFavorites = Math.ceil(

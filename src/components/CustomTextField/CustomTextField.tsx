@@ -12,6 +12,7 @@ interface CustomTextfieldProps {
   disabled?: boolean;
   style?: SxProps<Theme> | undefined;
   placeholder: string;
+  name:string
 }
 
 const CustomTextfield = ({
@@ -23,9 +24,11 @@ const CustomTextfield = ({
   disabled = false,
   style,
   placeholder,
+  name
 }: CustomTextfieldProps) => {
   return (
     <TextField
+    name={name}
       placeholder={placeholder}
       type={type}
       onChange={onChange}

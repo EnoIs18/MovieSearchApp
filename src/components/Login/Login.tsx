@@ -1,49 +1,86 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Box, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { login, selectLoggedUser } from "../../data/store/userSlice";
-import CustomButton from "../CustomButton/CustomButton";
-import BasicTabs from "../TabPanel/CustomTabPanel";
+import { TextField } from '@mui/material';
+import { Box } from '@mui/system';
+import { Formik } from 'formik';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../../data/store/userSlice';
+import CustomButton from '../CustomButton/CustomButton';
+import CustomTextfield from '../CustomTextField/CustomTextField';
+import * as Yup from 'yup';
 
-export default function Login() {
-  const [open, setOpen] = React.useState(false);
+const Login = () => {
   const dispatch = useDispatch();
 
-  const userLogged = useSelector(selectLoggedUser);
+  const initialValues = { username: '', password: '' };
+  
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const validate = (values: typeof initialValues)=>{
+    const errors = {username:'',password:''};
+ console.log('eno');
  
-  return (
-    <div>
-      <CustomButton variant="outlined" onClick={handleClickOpen}>
-        LOGIN
-      </CustomButton>
+   if (!values.username) {
+     errors.username = 'Required';
+   }
+ 
+   //...
+   console.log('Validation Errors:', errors); // Log errors
+   return errors;
+  }
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogContent>
-         <BasicTabs />
-        </DialogContent>
-        <DialogActions>
-          <CustomButton onClick={handleClose}>Close</CustomButton>
-        </DialogActions>
-      </Dialog>
-    </div>
+
+  const handleLogin = (values:any,errors:any) => {
+    console.log(errors,'err',values);
+    
+    dispatch(login({ username: values?.username, password: values?.password }));
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validate={validate} // Corrected
+      onSubmit={handleLogin}
+    >
+      {({
+        errors,
+        values,
+        handleChange,
+        handleSubmit,
+        handleReset,
+        touched,
+        setFieldValue,
+        resetForm,
+      }) => (
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <CustomTextfield
+            name="username"
+            label="username"
+            placeholder="enter username"
+            type="text"
+            value={values.username}
+            variant="filled"
+            onChange={handleChange}
+          />
+            {errors.username && touched.username ? (
+             <div>{errors.username}</div>
+           ) : null}
+          <CustomTextfield
+            name="password"
+            label="password"
+            placeholder="enter password"
+            type="password"
+            value={values.password}
+            variant="filled"
+            onChange={handleChange}
+          />
+                {errors && errors.password && touched.password ? (
+             <div>{errors.password}</div>
+           ) : null}
+          <CustomButton onClick={()=>handleLogin(values,errors)}>Confirm</CustomButton>
+        </Box>
+      )}
+    </Formik>
   );
-}
+};
+
+export default Login;
