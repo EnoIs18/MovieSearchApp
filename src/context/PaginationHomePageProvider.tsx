@@ -1,8 +1,8 @@
 import React, { useState, ReactNode, useEffect } from "react";
 import { Context } from "./Context";
-import { Pagination } from "@mui/material";
+import { CircularProgress, Pagination } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMoviesState } from "../data/store/moviesByTitleSlice";
+import { selectIsLoadingState, selectMoviesState } from "../data/store/moviesByTitleSlice";
 import { useLazyGetMoviesByTitleQuery } from "../data/endpoints/app.endpoints";
 import {
   selectCurrentPage,
@@ -17,7 +17,9 @@ type ProviderProps = {
 
 const PaginationHomePageProvider = ({ children }: ProviderProps) => {
   const dispatch = useDispatch();
-  const [getMovies] = useLazyGetMoviesByTitleQuery();
+  const [getMovies ] = useLazyGetMoviesByTitleQuery();
+const isLoading = useSelector(selectIsLoadingState)
+console.log(isLoading,'is loading');
 
   const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
@@ -58,15 +60,22 @@ const PaginationHomePageProvider = ({ children }: ProviderProps) => {
         currentPage,
       }}
     >
-      {children}
-      {count > 1 ? (
-        <Pagination
-          count={count}
-          page={currentPage}
-          onChange={handlePageChange}
-          shape="rounded"
-        />
-      ) : null}
+      {
+
+        isLoading ? <CircularProgress /> :
+        <>
+        {children}
+        {count > 1 ? (
+          <Pagination
+            count={count}
+            page={currentPage}
+            onChange={handlePageChange}
+            shape="rounded"
+            />
+        ) : null}
+            </> 
+      }
+      
     </Context.Provider>
   );
 };

@@ -16,9 +16,10 @@ const initialState: MoviesByTitleProps = {
   favorites: [],
 };
 
-const selectSelf: any = (state: RootState) => state.reducer.moviesByTitle;
+  const selectSelf: any = (state: RootState) => state.reducer.moviesByTitle;
 
 export const selectMoviesState = createSelector(selectSelf, (state) => state);
+export const selectIsLoadingState = createSelector(selectSelf, (state) => state.isLoading);
 
 export const moviesByTitleSlice = createSlice({
   name: "moviesByTitle",

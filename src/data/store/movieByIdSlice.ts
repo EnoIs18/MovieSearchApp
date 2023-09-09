@@ -20,6 +20,7 @@ export const selectMovieByIDState = createSelector(
   selectSelf,
   (state) => state
 );
+export const selectIsLoadingState = createSelector(selectSelf, (state) => state.isLoading);
 
 export const movieByIdSlice = createSlice({
   name: "movieById",

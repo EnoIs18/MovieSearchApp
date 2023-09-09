@@ -36,6 +36,7 @@ const loggedUser = useSelector(selectLoggedUser)
   }
       
       <Box sx={{ display: "grid", gridTemplateColumns: "30% 30% 30%", gap: 5 }}>
+        
         <MoviesBySearch movies={currentMovies} />
       </Box>
     </Box>

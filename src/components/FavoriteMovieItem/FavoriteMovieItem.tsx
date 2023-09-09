@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarRateIcon from '@mui/icons-material/StarRate';
 import {
   addFavorite,
   removeFavorite,
@@ -59,7 +61,16 @@ e.stopPropagation()
         }}
       />
         <h3>{movie.Title}</h3>
-        <h3>My rate:{movie.rating}</h3>
+        {
+          movie.rating ===0 ?
+          <h3>
+            <StarBorderIcon />  Rate
+          </h3>
+          :
+          <h3>
+            <StarRateIcon /> {movie.rating}
+          </h3>
+        }
         <p>Type: {movie.Type}</p>
         <p>Year: {movie.Year}</p>
         <p>IMDb ID: {movie.imdbID}</p>
