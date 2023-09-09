@@ -55,7 +55,7 @@ const userSlice = createSlice({
 
       const user = state.users.find((u: any) => u.isLoggedIn);
       if (user) {
-        user.favorites.push(movie);
+        user.favorites.push({...movie,rating:0});
       }
     },
     removeFavorite: (state, action) => {
@@ -66,6 +66,23 @@ const userSlice = createSlice({
         user.favorites = user.favorites.filter(
           (id: any) => id.imdbID !== movie.imdbID
         );
+      }
+    },
+    setRate:(state,action)=>{
+      console.log('punon');
+      
+      const user = state.users.find((u: any) => u.isLoggedIn);
+      if (user) {
+        const updatedFavorites = user.favorites.map((favMovie: any) => {
+          if (favMovie.imdbID === action.payload.favoriteMovie.imdbID) {
+            // Update the rating for the specific movie
+            return { ...favMovie, rating: action.payload.newValue }; // Use newValue here
+          }
+          return favMovie;
+        });
+    
+        // Update the user's favorites with the updated array
+        user.favorites = updatedFavorites;
       }
     },
     setCurrentPage: (state, action) => {
@@ -109,7 +126,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addFavorite, removeFavorite, logout, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
+export const { addFavorite, removeFavorite,setRate, logout, login, setCurrentPage,setFavoriteMoviesCurrentPage } =
   userSlice.actions;
 
 export default userSlice.reducer;

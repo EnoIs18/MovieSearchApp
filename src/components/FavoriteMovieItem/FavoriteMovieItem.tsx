@@ -7,8 +7,10 @@ import {
   addFavorite,
   removeFavorite,
   selectLoggedUser,
+  setRate,
 } from "../../data/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Rating } from "@mui/material";
 interface MovieProps {
   movie: any;
 }
@@ -30,7 +32,7 @@ const FavoriteMovieItem = ({ movie }: MovieProps) => {
     }
   };
   return (
-    <Link to={`/movies/favorites`}>
+    <Link to={`/movies/favorites/${movie?.imdbID}`}>
       <div style={{ position: "relative" }}>
         <CustomButton
           onClick={(e) => {
@@ -46,7 +48,18 @@ const FavoriteMovieItem = ({ movie }: MovieProps) => {
             )
           }
         />
+               <Rating
+        name="simple-controlled"
+        value={movie?.rating}
+        onClick={(e)=>{
+e.stopPropagation()
+        }}
+        onChange={(event, newValue) => {
+          dispatch(setRate({favoriteMovie:movie,newValue}))
+        }}
+      />
         <h3>{movie.Title}</h3>
+        <h3>My rate:{movie.rating}</h3>
         <p>Type: {movie.Type}</p>
         <p>Year: {movie.Year}</p>
         <p>IMDb ID: {movie.imdbID}</p>

@@ -7,8 +7,10 @@ import {
   addFavorite,
   removeFavorite,
   selectLoggedUser,
+  setRate,
 } from "../../data/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Rating } from "@mui/material";
 interface MovieProps {
   movie: any;
 }
@@ -46,14 +48,15 @@ const MovieItem = ({ movie }: MovieProps) => {
             )
           }
         />
-        <h3>{movie.Title}</h3>
-        <p>Type: {movie.Type}</p>
-        <p>Year: {movie.Year}</p>
-        <p>IMDb ID: {movie.imdbID}</p>
-        {movie.Poster !== "N/A" && (
+ 
+        <h3>{movie?.Title}</h3>
+        <p>Type: {movie?.Type}</p>
+        <p>Year: {movie?.Year}</p>
+        <p>IMDb ID: {movie?.imdbID}</p>
+        {movie?.Poster !== "N/A" && (
           <img
-            src={movie.Poster}
-            alt={movie.Title}
+            src={movie?.Poster}
+            alt={movie?.Title}
             width={150}
             height={150}
             loading="lazy"

@@ -30,6 +30,7 @@ function App() {
           }
         />
         <Route path="/movies/:id" element={<MovieDetails />} />
+        <Route path="/movies/favorites/:id" element={<MovieDetails />} />
       </Routes>
     </BrowserRouter>
   );
