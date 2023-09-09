@@ -1,4 +1,4 @@
-import { SxProps, TextField, TextFieldVariants, Theme } from "@mui/material";
+import { TextField } from "@mui/material";
 import React from "react";
 
 interface CustomTextfieldProps {
@@ -8,11 +8,12 @@ interface CustomTextfieldProps {
     | undefined;
   value: string;
   label?: string;
-  variant?: TextFieldVariants | undefined;
+  variant?: "outlined" | "filled" | "standard" | undefined; 
   disabled?: boolean;
-  style?: SxProps<Theme> | undefined;
+  style?: React.CSSProperties | undefined; 
   placeholder: string;
-  name:string
+  name: string;
+  children?: React.ReactNode; 
 }
 
 const CustomTextfield = ({
@@ -24,11 +25,12 @@ const CustomTextfield = ({
   disabled = false,
   style,
   placeholder,
-  name
+  name,
+  children, 
 }: CustomTextfieldProps) => {
   return (
     <TextField
-    name={name}
+      name={name}
       placeholder={placeholder}
       type={type}
       onChange={onChange}
@@ -37,6 +39,9 @@ const CustomTextfield = ({
       variant={variant}
       sx={style}
       disabled={disabled}
+      InputProps={{
+        endAdornment: children, 
+      }}
     />
   );
 };

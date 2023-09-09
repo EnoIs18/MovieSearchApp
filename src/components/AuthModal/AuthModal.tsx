@@ -9,7 +9,7 @@ import { login, selectLoggedUser } from "../../data/store/userSlice";
 import CustomButton from "../CustomButton/CustomButton";
 import BasicTabs from "../TabPanel/CustomTabPanel";
 
-export default function Login() {
+export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
 
 
@@ -22,8 +22,11 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <CustomButton variant="outlined" onClick={handleClickOpen}>
+    <>
+      <CustomButton   style={{
+                    backgroundColor: '#fff ',
+                    color: '#000',    
+                }} variant="outlined" onClick={handleClickOpen}>
         LOGIN
       </CustomButton>
 
@@ -40,6 +43,6 @@ export default function Login() {
           <CustomButton onClick={handleClose}>Close</CustomButton>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

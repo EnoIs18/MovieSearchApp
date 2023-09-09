@@ -6,6 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store, persistor } from "./data/store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme ,ThemeProvider } from "@mui/material";
+const theme = createTheme({
+  palette: {
+
+    background: {
+      default: '#080a1a', 
+    },
+    text: {
+      primary: "#fff", 
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,7 +26,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
+    <ThemeProvider theme={theme}>
+    <CssBaseline />
       <App />
+      </ThemeProvider>
     </PersistGate>
   </Provider>
 );

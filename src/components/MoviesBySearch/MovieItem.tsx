@@ -32,7 +32,7 @@ const MovieItem = ({ movie }: MovieProps) => {
     }
   };
   return (
-    <Link to={`/movies/${movie.imdbID}`}>
+    <Link to={`/movies/${movie.imdbID}`} style={{textDecoration: 'none',color: "inherit"}}>
       <div style={{ position: "relative" }}>
         <CustomButton
           onClick={(e) => {

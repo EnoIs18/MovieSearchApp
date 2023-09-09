@@ -23,6 +23,7 @@ console.log(isLoading,'is loading');
 
   const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
+ const totalResults= movies?.moviesByTitle?.totalResults
   const currentMovies = movies?.moviesByTitle?.Search;
 
   const [searchText, setSearchText] = useState("");
@@ -58,6 +59,7 @@ console.log(isLoading,'is loading');
         getMovies,
         searchText,
         currentPage,
+        totalResults
       }}
     >
       {

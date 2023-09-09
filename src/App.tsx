@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./App.css";
 import PaginationHomePageProvider from "./context/PaginationHomePageProvider";
 import HomePage from "./components/HomePage/HomePage";
@@ -6,8 +6,10 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import FavoriteMovies from "./components/FavoriteMovies/FavoriteMovies";
 import PaginationFavoriteProvider from "./context/PaginationFavoriteMoviesProvider";
-import Register from "./components/Register/Register";
 import SimpleSnackbar from "./components/SnackBarNotification/SnackBarNotification";
+
+
+
 function App() {
   return (
     <BrowserRouter>
