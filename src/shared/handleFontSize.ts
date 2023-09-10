@@ -7,6 +7,6 @@ export const handleFontSizeByLength = ( (titleLength:number) =>{
 
   export const handleMovieDetailsFontSizeByLength = ( (titleLength:number) =>{
     let value;
-  titleLength  >= 40 ? value= '140%' : titleLength  >= 29 ? value='160%' :  value='190%'
+  titleLength  >= 40 ? value= '130%' : titleLength  >= 29 ? value='160%' :  value='190%'
     return value
   } )
