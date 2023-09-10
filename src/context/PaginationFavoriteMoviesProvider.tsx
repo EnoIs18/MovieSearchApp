@@ -29,8 +29,6 @@ const PaginationFavoriteProvider = ({ children }: ProviderProps) => {
   const handlePageChange = (event: any, newPage: any) => {
     dispatch(setFavoriteMoviesCurrentPage(newPage));
   };
-
-  //favorites movies
   const loggedUser = useSelector(selectLoggedUser);
 
   const count = Math.ceil(
@@ -51,12 +49,25 @@ const PaginationFavoriteProvider = ({ children }: ProviderProps) => {
     >
       {children}
       {count > 1 ? (
-        <Pagination
-          count={count}
-          page={currentPage}
-          onChange={handlePageChange}
-          shape="rounded"
-        />
+     <Pagination
+     count={count}
+     page={currentPage}
+     onChange={handlePageChange}
+     shape="rounded"
+     size="large"
+     color="primary"
+     sx={{
+       display: 'flex',
+justifyContent: 'center',
+alignItems: 'center',
+marginBottom:10,
+position: 'static',
+"& .MuiPaginationItem-sizeLarge": {
+fontSize: '200%', 
+p:5
+},
+     }}
+     />
       ) : null}
     </FavoriteMoviesContext.Provider>
   );

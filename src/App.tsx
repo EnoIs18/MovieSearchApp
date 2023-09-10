@@ -7,10 +7,15 @@ import MovieDetails from "./components/MovieDetails/MovieDetails";
 import FavoriteMovies from "./components/FavoriteMovies/FavoriteMovies";
 import PaginationFavoriteProvider from "./context/PaginationFavoriteMoviesProvider";
 import SimpleSnackbar from "./components/SnackBarNotification/SnackBarNotification";
+import { selectLoggedUser } from "./data/store/userSlice";
+import { useSelector } from "react-redux";
+import ProtectedRoute from "./shared/ProtectedRoute";
 
 
 
 function App() {
+  const loggedUser = useSelector(selectLoggedUser)
+
   return (
     <BrowserRouter>
       <Routes>
@@ -28,7 +33,8 @@ function App() {
           path="/movies/favorites"
           element={
             <PaginationFavoriteProvider>
-              <FavoriteMovies />
+              <ProtectedRoute isUserLoggedIn={loggedUser} 
+             />
             </PaginationFavoriteProvider>
           }
         />

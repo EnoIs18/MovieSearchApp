@@ -1,20 +1,21 @@
-import React from 'react'
+import React from "react";
+import { Navigate } from "react-router";
+import FavoriteMovies from "../components/FavoriteMovies/FavoriteMovies";
+import HomePage from "../components/HomePage/HomePage";
+
+
 
 interface ProtectedRouteProps {
     isUserLoggedIn: boolean;
-    loadingSpinnerCondition: boolean;
-    Component: any;
   }
   
-
-const ProtectedRoute = ({
-isUserLoggedIn,
-loadingSpinnerCondition,
-Component
-}:ProtectedRouteProps) => {
-  return (
-    <div>ProtectedRoute</div>
-  )
-}
-
-export default ProtectedRoute
+  const ProtectedRoute = ({
+    isUserLoggedIn,
+  }: ProtectedRouteProps) => {
+    return isUserLoggedIn ? (
+      <FavoriteMovies />
+    ) : (
+      <Navigate to="/" />
+    );
+  };
+export default React.memo(ProtectedRoute);

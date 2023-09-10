@@ -9,6 +9,7 @@ const NavBar = ({children}:any) => {
 
         padding: '20px',
         backgroundColor: '#080a1a',
+        
     }} >
         <Toolbar style={{padding:5,gap:20}} >
             {children}

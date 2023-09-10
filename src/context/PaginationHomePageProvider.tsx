@@ -9,7 +9,6 @@ import {
   selectLoggedUser,
   setCurrentPage,
 } from "../data/store/userSlice";
-import { useParams } from "react-router";
 
 type ProviderProps = {
   children: ReactNode;
@@ -17,9 +16,9 @@ type ProviderProps = {
 
 const PaginationHomePageProvider = ({ children }: ProviderProps) => {
   const dispatch = useDispatch();
-  const [getMovies ] = useLazyGetMoviesByTitleQuery();
+  const [getMovies,moviesResult ] = useLazyGetMoviesByTitleQuery();
 const isLoading = useSelector(selectIsLoadingState)
-console.log(isLoading,'is loading');
+console.log(moviesResult);
 
   const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
@@ -34,15 +33,7 @@ console.log(isLoading,'is loading');
   };
   const count = Math.ceil(movies?.moviesByTitle?.totalResults / itemsPerPage);
 
-  //favorites movies
-  const loggedUser = useSelector(selectLoggedUser);
 
-  const params = useParams();
-
-  const currentFavoriteMovies = loggedUser?.favorites;
-  const countForFavorites = Math.ceil(
-    loggedUser?.favorites?.length / itemsPerPage
-  );
 
   useEffect(() => {
     getMovies({
@@ -59,12 +50,14 @@ console.log(isLoading,'is loading');
         getMovies,
         searchText,
         currentPage,
-        totalResults
+        totalResults,
+        isLoading,
+        moviesResult
       }}
     >
       {
 
-        isLoading ? <CircularProgress /> :
+       
         <>
         {children}
         {count > 1 ? (
@@ -73,6 +66,19 @@ console.log(isLoading,'is loading');
             page={currentPage}
             onChange={handlePageChange}
             shape="rounded"
+            size="large"
+            color="primary"
+            sx={{
+              display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginBottom:10,
+  position: 'static',
+  "& .MuiPaginationItem-sizeLarge": {
+    fontSize: '200%', 
+    p:5
+  },
+            }}
             />
         ) : null}
             </> 
