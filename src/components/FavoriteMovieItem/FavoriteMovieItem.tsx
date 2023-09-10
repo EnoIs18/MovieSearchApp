@@ -66,13 +66,13 @@ onChange={(event, newValue) => {
 emptyIcon={ <StarBorderIcon sx={{color:'white'}} />}
 />
 {movie.rating ===0 ?
-     <Typography gutterBottom variant="body2" color="text.secondary"  sx={{ color: 'inherit' ,fontSize: '110%',fontWeight:'700'}}>
+     <Typography gutterBottom variant="body2" color="text.secondary" component='div'  sx={{ color: 'inherit' ,fontSize: '110%',fontWeight:'700'}}>
 <Box  style={{display:'flex',gap:2,justifyContent:'center',}}>
   <StarBorderIcon sx={{color:'white'}} />   No rate
 </Box>
          </Typography>
   :
-  <Typography gutterBottom variant="body2" color="text.secondary"  sx={{alignItems:'center', color: 'inherit' ,fontSize: '120%',fontWeight:'700'}}>
+  <Typography gutterBottom variant="body2" color="text.secondary"   component='div'  sx={{alignItems:'center', color: 'inherit' ,fontSize: '120%',fontWeight:'700'}}>
 <Box  style={{display:'flex',gap:2,justifyContent:'center',}}>
 <StarRateIcon  sx={{color:'#faaf00'}} /> {movie.rating}
 </Box>

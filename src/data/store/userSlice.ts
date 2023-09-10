@@ -13,7 +13,7 @@ const initialState: any = {
   users: [],
   currentPage: 1,
   favoritesMoviesCurrentPage:1,
-  error:undefined,
+  error:'',
   notification:false,
   textNotification:''
 };
@@ -105,9 +105,9 @@ const userSlice = createSlice({
         return; 
       }
 
-      state.users = [...state.users, { username, password, isLoggedIn: false, favorites: [], error: undefined }];
-      state.notification = true
       state.error = ''
+      state.users = [...state.users, { username, password, isLoggedIn: false, favorites: [], error: '' }];
+      state.notification = true
       state.textNotification='User registered successfully'
     
     },

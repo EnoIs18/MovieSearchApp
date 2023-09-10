@@ -6,12 +6,14 @@ import { register, SelectAuthError } from '../../data/store/userSlice'
 import CustomButton from '../CustomButton/CustomButton'
 import CustomTextfield from '../CustomTextField/CustomTextField'
 import * as Yup from 'yup';
+import AuthFormField from '../AuthFormField/AuthFormField'
 
 const Register = ({handleClose}:any) => {
 const dispatch = useDispatch()
 
 const initialValues = {username:'',password:''}
-let error = useSelector(SelectAuthError)
+let authError = useSelector(SelectAuthError)
+
 
     const handleRegister = (values:any) => {
 
@@ -19,9 +21,9 @@ let error = useSelector(SelectAuthError)
 
       dispatch(register({ username: values?.username, password: values?.password , isLoggedIn: false,
         favorites: [],}));
-        if(error=''){
-          handleClose()
-        }
+        console.log(authError,'enoooooo');
+        
+      
     }
     const validationSchema = Yup.object().shape({
       username: Yup.string()
@@ -51,16 +53,31 @@ let error = useSelector(SelectAuthError)
           setFieldValue,
           resetForm,
         }) => (
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CustomTextfield name="username" label="Username" placeholder='enter username' type='text' value={values?.username} variant='standard'  onChange={handleChange}  />
-            {touched.username && errors.username && (
-            <div style={{ color: 'red' }}>{errors.username}</div>
-          )}
-            <CustomTextfield  name="password" label="Password" placeholder='enter password' type='text' value={values?.password} variant='standard'  onChange={handleChange}  />
-            {touched.password && errors.password && (
-            <div style={{ color: 'red' }}>{errors.password}</div>
-          )}
-          <CustomButton onClick={handleSubmit as any}>Confirm</CustomButton>
+            <Box sx={{ display: "flex", flexDirection: "column",gap:2,minWidth:500,width:'100%',maxWidth:1000 }}>
+        <AuthFormField name="username"   
+            label="Username"
+            placeholder="Enter username"
+            type="text"
+            value={values.username}
+            variant="standard"
+            onChange={handleChange}
+            touched={touched.username}
+            errors={errors.username}
+            fullWidth={true}
+          />
+                    <AuthFormField
+            name="password"
+            label="Password"
+            placeholder="Enter password"
+            type="password"
+            value={values.password}
+            variant="standard"
+            onChange={handleChange}
+            touched={touched.password}
+            errors={errors.password}
+            fullWidth={true}
+          />
+          <CustomButton onClick={handleSubmit as any}>Register</CustomButton>
           </Box>
         )}
       </Formik>

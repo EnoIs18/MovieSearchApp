@@ -8,7 +8,19 @@ import { store, persistor } from "./data/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme ,ThemeProvider } from "@mui/material";
+
 const theme = createTheme({
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          '& input': {
+            color: 'black'
+          },
+        }),
+      },
+    },
+  },
   palette: {
 
     background: {
@@ -16,7 +28,7 @@ const theme = createTheme({
     },
     text: {
       primary: "#ffffffd6", 
-      secondary:'red'
+      secondary:'#000'
     },
   },
 });

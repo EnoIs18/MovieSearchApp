@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, CircularProgress, IconButton, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, createTheme, IconButton, Stack, Typography } from "@mui/material";
 import CustomTextfield from "../CustomTextField/CustomTextField";
 import CustomButton from "../CustomButton/CustomButton";
 import MoviesBySearch from "../MoviesBySearch/MoviesBySearch";
@@ -16,16 +16,15 @@ const HomePage = () => {
     useContext(Context);
 const loggedUser = useSelector(selectLoggedUser)    
 const dispatch = useDispatch();
+
   return (
     <>
   <NavBar position='static' >
-  
   <IconButton size='large'  edge='start'  aria-label='logo'>
-
 <HdIcon style={{ color: 'white' }} />
 </IconButton>
 <Link to='/' style={{textDecoration: 'none',color: "inherit"}}>
-<Typography  variant='h6' component='div' > MOVIE APP</Typography>
+<Typography  variant='h6' component='div'  > MOVIE APP</Typography>
 </Link>
 <CustomTextfield
 name='search'
@@ -48,9 +47,6 @@ children={
     variant="contained"
     onClick={() => {
       getMovies({ search: searchText, page: currentPage });
-    }}
-    style={{
-      backgroundColor:'#f20000'
     }}
   />
 }/>

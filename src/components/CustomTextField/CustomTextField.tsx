@@ -11,9 +11,10 @@ interface CustomTextfieldProps {
   variant?: "outlined" | "filled" | "standard" | undefined; 
   disabled?: boolean;
   style?: React.CSSProperties | undefined; 
-  placeholder: string;
+  placeholder?: string;
   name: string;
-  children?: React.ReactNode; 
+  children?: React.ReactNode;
+  fullWidth?:boolean 
 }
 
 const CustomTextfield = ({
@@ -27,6 +28,7 @@ const CustomTextfield = ({
   placeholder,
   name,
   children, 
+  fullWidth
 }: CustomTextfieldProps) => {
   return (
     <TextField
@@ -39,6 +41,7 @@ const CustomTextfield = ({
       variant={variant}
       sx={style}
       disabled={disabled}
+      fullWidth={fullWidth}
       InputProps={{
         endAdornment: children, 
       }}

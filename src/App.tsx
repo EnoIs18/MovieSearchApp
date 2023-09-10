@@ -4,7 +4,6 @@ import PaginationHomePageProvider from "./context/PaginationHomePageProvider";
 import HomePage from "./components/HomePage/HomePage";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
-import FavoriteMovies from "./components/FavoriteMovies/FavoriteMovies";
 import PaginationFavoriteProvider from "./context/PaginationFavoriteMoviesProvider";
 import SimpleSnackbar from "./components/SnackBarNotification/SnackBarNotification";
 import { selectLoggedUser } from "./data/store/userSlice";

@@ -1,12 +1,7 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
-import CustomButton from '../CustomButton/CustomButton';
-import { useDispatch } from 'react-redux';
-import { login, register } from '../../data/store/userSlice';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
@@ -46,7 +41,6 @@ function a11yProps(index: number) {
 
 export default function BasicTabs({handleClose}:any) {
   const [value, setValue] = React.useState(0);
-  const dispatch = useDispatch();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

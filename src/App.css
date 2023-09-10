@@ -1,11 +1,7 @@
 .App {
   text-align: center;
 }
-::placeholder {
-color: #000  !important;
-font-weight: bold;
-font-size: 120%
-}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
