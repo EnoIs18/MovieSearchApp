@@ -35,7 +35,6 @@ export default function AuthModal({handleClickOpen,handleClose,open}:AuthModalPr
         aria-describedby="alert-dialog-description"
       >
         <DialogContent 
-      sx={{height:'15vh'}}
         
         >
           <BasicTabs handleClose={handleClose} /> 
