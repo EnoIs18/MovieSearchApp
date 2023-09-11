@@ -1,5 +1,5 @@
 import React, {  useEffect,useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useLazyGetMovieByIdQuery } from "../../data/endpoints/app.endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoadingState, selectMovieByIDState } from "../../data/store/movieByIdSlice";
@@ -14,7 +14,8 @@ import { handleMovieDetailsFontSizeByLength } from "../../shared/handleFontSize"
 import RatingCircularProgress from "../RatingCircularProgress/RatingCircularProgress";
 import LongTextComponent from "../LongTextComponent/LongTextComponent";
 import { Context } from "../../context/Context";
-
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import NavbarDetails from "../NavbarDetails/NavbarDetails";
 const VerticalBar = () => (
   <Box
     style={{
@@ -41,7 +42,7 @@ const [open,setOpen]=useState(false)
   const handleClickOpen = () => {
   setOpen(true);
 };
-
+const navigate = useNavigate()
 const handleClose = () => {
   setOpen(false);
 };
@@ -54,27 +55,8 @@ const handleClose = () => {
     <Box sx={{display:'grid' ,mt:'4%'
     }}> 
       <NavBar position="static">
-        <IconButton size="large" edge="start" aria-label="logo">
-          <HdIcon fontSize="large" style={{ color: 'white' }} />
-        </IconButton>
-        <Link to='/' style={{ textDecoration: 'none', color: "inherit" }}>
-          <Typography variant='h6' component='div'> MOVIE APP</Typography>
-        </Link>
-        <Stack direction='row' spacing={2}>
-          {loggedUser && loggedUser?.isLoggedIn ? (
-            <CustomButton
-              style={{
-                color: 'inherit',
-              }}
-              onClick={() => {
-                dispatch(logout());
-              }}
-              children={"LOG OUT"}
-            />
-          ) : (
-<AuthModal  open={open} handleClickOpen={handleClickOpen} handleClose={handleClose}/>
-          )}
-        </Stack>
+      <NavbarDetails/>
+
       </NavBar>
 
       <Box
@@ -135,7 +117,7 @@ const handleClose = () => {
             <Box sx={{display:'flex',justifyContent:'space-between'}}>
               <Box sx={{display:'flex',gap:1,flexDirection:'column'}}>
             <MovieDetailItem fontSize="150%" value={movieById?.Actors} description='Actors:  ' />
-            <LongTextComponent text={movieById?.Writer} maxWidth="500px" fontSize={'150%'} description='Writers:  '/>
+            <LongTextComponent text={movieById?.Writer} maxWidth={'700px'} fontSize={'150%'} description='Writers:  '/>
             <MovieDetailItem fontSize="150%" value={movieById?.Country} letterSpacing={"1.5px"}description='Country:  '/>
             <MovieDetailItem fontSize="150%" value={movieById?.Language} letterSpacing={"1.5px"}description='Language:  '/>
               </Box>

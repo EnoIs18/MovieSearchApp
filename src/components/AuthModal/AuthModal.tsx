@@ -14,26 +14,30 @@ interface AuthModalProps {
   open:boolean;
 }
 export default function AuthModal({handleClickOpen,handleClose,open}:AuthModalProps) {
-// const {open,setOpen} = useContext(Context)
 
 
 
   return (
     <>
       <CustomButton   style={{
-                    backgroundColor: '#fff ',
+        p:2,
+                    backgroundColor: '#ffffffd6 ',
                     color: '#000',    
-                }} variant="outlined" onClick={handleClickOpen}>
+                }} variant="contained" onClick={handleClickOpen}>
         LOGIN
       </CustomButton>
 
-      <Dialog
+      <Dialog 
+      sx={{width:'100vw'}}
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogContent>
+        <DialogContent 
+      sx={{height:'15vh'}}
+        
+        >
           <BasicTabs handleClose={handleClose} /> 
         </DialogContent>
         <DialogActions>

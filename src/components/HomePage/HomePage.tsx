@@ -63,13 +63,22 @@ children={
     }}
   />
 }/>
+<CustomSelector  value={selectorValue} onChange={(newValue) => setSelectorValue(newValue)} >
+<MenuItem sx={{color:'black'}} key={''} value={''}>
+Clear year          </MenuItem>
+{yearsArray.map((year) => (
+          <MenuItem sx={{color:'black'}} key={year} value={year}>
+            {year}
+          </MenuItem>
+        ))}
+</CustomSelector>
 <Stack direction={'row'} spacing={2}>
 {loggedUser && loggedUser?.isLoggedIn ? (
 <>
       <Link to={`/movies/favorites`}>
-      <CustomButton    children={
+      <CustomButton     children={
         <Badge badgeContent={loggedUser?.favorites.length} color="primary">
-          <FavoriteIcon />
+          <FavoriteIcon fontSize="large"/>
         </Badge>
       }  style={{
               color: '#fff',    
@@ -88,15 +97,7 @@ children={
 ) : (
 <AuthModal  open={openModal} handleClickOpen={handleClickOpen} handleClose={handleClose}/>
 )} 
-<CustomSelector  value={selectorValue} onChange={(newValue) => setSelectorValue(newValue)} placeholder='Select to sort by year'>
-<MenuItem sx={{color:'black'}} key={''} value={''}>
-Clear year          </MenuItem>
-{yearsArray.map((year) => (
-          <MenuItem sx={{color:'black'}} key={year} value={year}>
-            {year}
-          </MenuItem>
-        ))}
-</CustomSelector>
+
 </Stack>
 </NavBar>
 <Box style={{

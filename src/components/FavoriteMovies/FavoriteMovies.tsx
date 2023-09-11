@@ -7,43 +7,22 @@ import FavoriteMovieItems from "../FavoriteMovieItems/FavoriteMovieItems";
 import { FavoriteMoviesContext } from "../../context/FavoriteMoviesContext";
 import NavBar from "../NavBar/NavBar";
 import HdIcon from '@mui/icons-material/Hd';
-import AuthModal from "../AuthModal/AuthModal";
 import { logout, selectLoggedUser } from "../../data/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import NavbarDetails from "../NavbarDetails/NavbarDetails";
 const FavoriteMovies = () => {
   const { currentMovies } =
     useContext(FavoriteMoviesContext);
     const loggedUser = useSelector(selectLoggedUser)    
 const dispatch = useDispatch();
 
-const navigate = useNavigate()
 
   return (
   <>
   <NavBar  position='static' >
-  <IconButton size='large'  edge='start'  aria-label='logo'>
-
-<HdIcon  fontSize='large' style={{ color: 'white' }} />
-</IconButton>
-<Link to='/' style={{textDecoration: 'none',color: "inherit"}}>
-<Typography  variant='h6' component='div' > MOVIE APP</Typography>
-</Link>
-<Stack direction={'row'} spacing={2}>
-<CustomButton
-    style={{
-        color: '#fff',    
-    }}
-    onClick={() => {
-        dispatch(logout());
-    }}
-    children={"LOG OUT"}
-    /> 
-<IconButton size='large'  edge='start'  aria-label='logo'>
-<HdIcon onClick={()=> navigate(-1)}  fontSize='large' style={{ color: 'white' }} />
-</IconButton>
-</Stack>
-  </NavBar>
+  <NavbarDetails/>
+    </NavBar>
   {
 loggedUser && loggedUser?.favorites?.length  ?   
 <Box sx={{  padding: 15,display: "grid", gridTemplateColumns: "30% 30% 30%", gap: 5 }}>
