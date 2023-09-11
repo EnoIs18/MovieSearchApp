@@ -23,13 +23,14 @@ export default function CustomSelector({ value, onChange, children, placeholder}
           id="custom-select"
           value={value}
           onChange={handleChange}
+          placeholder={placeholder}
           sx={{
             color: '#000',
             backgroundColor: '#e0d5d5',
             borderRadius: 1,
             boxShadow: '0 0 8px rgba(255, 255, 255, 0.6)',
-            '::placeholder': {
-              color: 'black  !impoertant', 
+            '& input': {
+              color: 'black  !important', 
             },
     }}
         >

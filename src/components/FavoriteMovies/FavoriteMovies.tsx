@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 
 import CustomButton from "../CustomButton/CustomButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FavoriteMovieItems from "../FavoriteMovieItems/FavoriteMovieItems";
 import { FavoriteMoviesContext } from "../../context/FavoriteMoviesContext";
 import NavBar from "../NavBar/NavBar";
@@ -12,11 +12,12 @@ import { logout, selectLoggedUser } from "../../data/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const FavoriteMovies = () => {
-  const { currentMovies, setSearchText, searchText, currentPage } =
+  const { currentMovies } =
     useContext(FavoriteMoviesContext);
     const loggedUser = useSelector(selectLoggedUser)    
 const dispatch = useDispatch();
-console.log(loggedUser?.favorites);
+
+const navigate = useNavigate()
 
   return (
   <>
@@ -29,7 +30,6 @@ console.log(loggedUser?.favorites);
 <Typography  variant='h6' component='div' > MOVIE APP</Typography>
 </Link>
 <Stack direction={'row'} spacing={2}>
-{loggedUser && loggedUser?.isLoggedIn ? (
 <CustomButton
     style={{
         color: '#fff',    
@@ -38,11 +38,10 @@ console.log(loggedUser?.favorites);
         dispatch(logout());
     }}
     children={"LOG OUT"}
-    />
-
-) : (
-<AuthModal />
-)} 
+    /> 
+<IconButton size='large'  edge='start'  aria-label='logo'>
+<HdIcon onClick={()=> navigate(-1)}  fontSize='large' style={{ color: 'white' }} />
+</IconButton>
 </Stack>
   </NavBar>
   {

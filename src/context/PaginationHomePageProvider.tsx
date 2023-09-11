@@ -19,6 +19,7 @@ const PaginationHomePageProvider = ({ children }: ProviderProps) => {
 const isLoading = useSelector(selectIsLoadingState)
 console.log(moviesResult);
 const [selectorValue,setSelectorValue] = useState('')
+const [openModal,setOpenModal] = useState(false)
 
   const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
@@ -55,7 +56,9 @@ const [selectorValue,setSelectorValue] = useState('')
         isLoading,
         moviesResult,
         selectorValue,
-        setSelectorValue
+        setSelectorValue,
+        openModal,
+        setOpenModal
       }}
     >
       {

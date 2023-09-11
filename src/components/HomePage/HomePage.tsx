@@ -16,10 +16,15 @@ import CustomSelector from "../CustomSelector/CustomSelector";
 
 const HomePage = () => {
   const { currentMovies,setSearchText, getMovies, searchText, currentPage ,totalResults,isLoading,moviesResult,selectorValue,
-    setSelectorValue} =
-    useContext(Context);
+    setSelectorValue,openModal,setOpenModal} =useContext(Context);
 const loggedUser = useSelector(selectLoggedUser)   
+const handleClickOpen = () => {
+  setOpenModal(true);
+};
 
+const handleClose = () => {
+  setOpenModal(false);
+};
 const dispatch = useDispatch();
 const yearsArray = []
 const currentYear = new Date().getFullYear();
@@ -81,7 +86,7 @@ children={
     />
     </>
 ) : (
-<AuthModal />
+<AuthModal  open={openModal} handleClickOpen={handleClickOpen} handleClose={handleClose}/>
 )} 
 <CustomSelector  value={selectorValue} onChange={(newValue) => setSelectorValue(newValue)} placeholder='Select to sort by year'>
 <MenuItem sx={{color:'black'}} key={''} value={''}>
@@ -96,7 +101,7 @@ Clear year          </MenuItem>
 </NavBar>
 <Box style={{
    
-}}>
+}}> 
   {isLoading ? <Box style={{  display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

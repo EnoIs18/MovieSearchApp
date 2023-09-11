@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -15,6 +15,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box } from "@mui/material";
 import { handleFontSizeByLength } from "../../shared/handleFontSize";
+import { Context } from "../../context/Context";
 interface MovieProps {
   movie: any;
 }
@@ -22,30 +23,29 @@ interface MovieProps {
 const MovieItem = ({ movie }: MovieProps) => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedUser)
-
+const {setOpenModal}= useContext(Context)
 
   const isUserFavorite =
     user && user?.favorites?.find((id: any) => id.imdbID === movie.imdbID);
 
   const handleFavoriteClick = () => {
+    if(!user){
+      setOpenModal(true)
+      return
+    }
     if (isUserFavorite) {
       dispatch(removeFavorite({ movie }));
     } else {
       dispatch(addFavorite({ movie }));
     }
   };
-  
-  
-
-
-
   return (
     <Link to={`/movies/${movie.imdbID}`} style={{textDecoration: 'none',color: "inherit"}}>
 <Box sx={{ border: '2px solid #ffffff4b', margin: 2, backgroundColor: 'transparent', padding: 1.2,borderRadius:2,width:'100%',  }}>
-  <Card sx={{ height: 600, position: 'relative' }}>
+  <Card sx={{ height: 900, position: 'relative' }}>
     {movie?.Poster !== "N/A" && (
       <CardMedia
-        sx={{ height: '80vh' }}
+        sx={{ height: 'inherit' }}
         image={movie?.Poster}
         title={movie?.Title}
       />

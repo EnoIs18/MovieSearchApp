@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,18 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, selectLoggedUser } from "../../data/store/userSlice";
 import CustomButton from "../CustomButton/CustomButton";
 import BasicTabs from "../TabPanel/CustomTabPanel";
+interface AuthModalProps {
+  handleClickOpen:()=>void;
+  handleClose:()=>void;
+  open:boolean;
+}
+export default function AuthModal({handleClickOpen,handleClose,open}:AuthModalProps) {
+// const {open,setOpen} = useContext(Context)
 
-export default function AuthModal() {
-  const [open, setOpen] = React.useState(false);
 
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <>

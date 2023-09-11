@@ -19,6 +19,7 @@ const PaginationFavoriteProvider = ({ children }: ProviderProps) => {
 
   const [searchText, setSearchText] = useState("");
   const currentPage = useSelector(selectFavoriteCurrentPage);
+  const [openModal,setOpenModal] = useState(false)
 
   const handlePageChange = (event: any, newPage: any) => {
     dispatch(setFavoriteMoviesCurrentPage(newPage));
@@ -39,6 +40,8 @@ const PaginationFavoriteProvider = ({ children }: ProviderProps) => {
         setSearchText,
         searchText,
         currentPage,
+        openModal,
+        setOpenModal
       }}
     >
       {children}

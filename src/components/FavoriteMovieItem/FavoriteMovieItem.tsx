@@ -44,7 +44,7 @@ const FavoriteMovieItem = ({ movie }: MovieProps) => {
   <Card sx={{ height: 600, position: 'relative' }}>
     {movie?.Poster !== "N/A" && (
       <CardMedia
-        sx={{ height: '80vh' }}
+        sx={{ height: 'inherit' }}
         image={movie?.Poster}
         title={movie?.Title}
       />

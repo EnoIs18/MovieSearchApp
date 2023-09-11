@@ -17,9 +17,11 @@ const theme = createTheme({
           '& input': {
             color: 'black'
           },
+          
         }),
       },
     },
+
   },
   palette: {
 

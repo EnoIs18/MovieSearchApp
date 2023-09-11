@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {  useEffect,useState } from "react";
 import { useParams } from "react-router";
 import { useLazyGetMovieByIdQuery } from "../../data/endpoints/app.endpoints";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import AuthModal from "../AuthModal/AuthModal";
 import { handleMovieDetailsFontSizeByLength } from "../../shared/handleFontSize";
 import RatingCircularProgress from "../RatingCircularProgress/RatingCircularProgress";
 import LongTextComponent from "../LongTextComponent/LongTextComponent";
+import { Context } from "../../context/Context";
 
 const VerticalBar = () => (
   <Box
@@ -34,12 +35,16 @@ const MovieDetails = () => {
   const { id } = useParams();
   const [getMovieById] = useLazyGetMovieByIdQuery();
   const { movieById } = useSelector(selectMovieByIDState);
-  const isLoading = useSelector(selectIsLoadingState)
   const loggedUser = useSelector(selectLoggedUser)
   const dispatch = useDispatch();
+const [open,setOpen]=useState(false)
+  const handleClickOpen = () => {
+  setOpen(true);
+};
 
-console.log(movieById);
-
+const handleClose = () => {
+  setOpen(false);
+};
 
   useEffect(() => {
     getMovieById(id);
@@ -67,7 +72,7 @@ console.log(movieById);
               children={"LOG OUT"}
             />
           ) : (
-            <AuthModal />
+<AuthModal  open={open} handleClickOpen={handleClickOpen} handleClose={handleClose}/>
           )}
         </Stack>
       </NavBar>
