@@ -8,8 +8,8 @@ export const omdApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://www.omdbapi.com/" }),
   endpoints: (builder) => ({
     getMoviesByTitle: builder.query<any, any>({
-      query: (object: { search: any; page: any }) => ({
-        url: `?s=${object.search}&apikey=db0223f4&page=${object.page}`,
+      query: (object: { search: any; page: any ;year:any}) => ({
+        url: `?s=${object.search}&apikey=db0223f4&page=${object.page}&y=${object.year}`,
         method: "GET",
         providesTags: ["MoviesByTitle"],
       }),

@@ -1,17 +1,11 @@
 import React, { useState, ReactNode, useEffect } from "react";
-import { Context } from "./Context";
 import { Pagination } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMoviesState } from "../data/store/moviesByTitleSlice";
-import { useLazyGetMoviesByTitleQuery } from "../data/endpoints/app.endpoints";
 import {
-  selectCurrentPage,
   selectFavoriteCurrentPage,
   selectLoggedUser,
-  setCurrentPage,
   setFavoriteMoviesCurrentPage,
 } from "../data/store/userSlice";
-import { useParams } from "react-router";
 import { FavoriteMoviesContext } from "./FavoriteMoviesContext";
 
 type ProviderProps = {

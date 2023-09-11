@@ -3,14 +3,14 @@ import { useParams } from "react-router";
 import { useLazyGetMovieByIdQuery } from "../../data/endpoints/app.endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoadingState, selectMovieByIDState } from "../../data/store/movieByIdSlice";
-import { Box, Card, CardMedia, CircularProgress, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Card, CardMedia, IconButton, Stack, Typography } from "@mui/material";
 import { logout, selectLoggedUser } from "../../data/store/userSlice";
 import NavBar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import HdIcon from '@mui/icons-material/Hd';
 import AuthModal from "../AuthModal/AuthModal";
-import { handleFontSizeByLength, handleMovieDetailsFontSizeByLength } from "../../shared/handleFontSize";
+import { handleMovieDetailsFontSizeByLength } from "../../shared/handleFontSize";
 import RatingCircularProgress from "../RatingCircularProgress/RatingCircularProgress";
 import LongTextComponent from "../LongTextComponent/LongTextComponent";
 

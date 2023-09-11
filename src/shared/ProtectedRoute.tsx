@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router";
 import FavoriteMovies from "../components/FavoriteMovies/FavoriteMovies";
-import HomePage from "../components/HomePage/HomePage";
 
 
 

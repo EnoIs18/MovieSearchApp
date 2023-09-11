@@ -6,7 +6,6 @@ import { selectIsLoadingState, selectMoviesState } from "../data/store/moviesByT
 import { useLazyGetMoviesByTitleQuery } from "../data/endpoints/app.endpoints";
 import {
   selectCurrentPage,
-  selectLoggedUser,
   setCurrentPage,
 } from "../data/store/userSlice";
 
@@ -19,6 +18,7 @@ const PaginationHomePageProvider = ({ children }: ProviderProps) => {
   const [getMovies,moviesResult ] = useLazyGetMoviesByTitleQuery();
 const isLoading = useSelector(selectIsLoadingState)
 console.log(moviesResult);
+const [selectorValue,setSelectorValue] = useState('')
 
   const itemsPerPage = 10;
   const movies = useSelector(selectMoviesState);
@@ -39,8 +39,9 @@ console.log(moviesResult);
     getMovies({
       search: !searchText.length ? "Batman" : searchText,
       page: currentPage,
+      year:selectorValue
     });
-  }, [currentPage]);
+  }, [currentPage,selectorValue]);
 
   return (
     <Context.Provider
@@ -52,7 +53,9 @@ console.log(moviesResult);
         currentPage,
         totalResults,
         isLoading,
-        moviesResult
+        moviesResult,
+        selectorValue,
+        setSelectorValue
       }}
     >
       {
